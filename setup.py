@@ -42,7 +42,7 @@ setup(name="M2Learn",
     license="new BSD",
     classifiers=[
         "Development Status :: 4 - Beta",
-        # "Environment :: Console",
+        "Environment :: Console",
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: New BSD License",
         "Natural Language :: English",
