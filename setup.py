@@ -55,10 +55,10 @@ setup(name="M2Learn",
     packages=[
         "src",
         "M2Learn"
-        "M2Learnfeature",
-        "src.pipeline",
-        "src.prediction",
-        "src.preprocessing",
+        "M2Learn.feature",
+        "M2Learn.pipeline",
+        "M2Learn.prediction",
+        "M2Learn.preprocessing",
     ],
     install_requires=[
         "numpy",
