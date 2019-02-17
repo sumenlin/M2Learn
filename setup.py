@@ -73,7 +73,7 @@ setup(name="M2Learn",
     },
     project_urls={  # Optional
         "Bug Reports": "https://github.com/sumenlin/M2Learn/issues",
-        "Source":      "https://github.com/sumenlin/M2Learn",
+        "Source":      "https://github.com/sumenlin/M2Learn/",
     },
 )
 
