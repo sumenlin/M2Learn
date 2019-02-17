@@ -65,12 +65,12 @@ setup(name="M2Learn",
         "scikit-learn == 0.20.0",
         "imbalanced-learn == 0.4.0",
     ],
-    # package_data={
-    #     'M2Learn': [
-    #         'LICENSE',
-    #         'README.rst',
-    #     ]
-    # },
+    package_data={
+        'M2Learn': [
+            'LICENSE',
+            'README.rst',
+        ]
+    },
     project_urls={  # Optional
         "Bug Reports": "https://github.com/sumenlin/M2Learn/issues",
         "Source":      "https://github.com/sumenlin/M2Learn",
