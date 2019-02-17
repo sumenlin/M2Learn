@@ -37,9 +37,9 @@ from sklearn.decomposition import PCA
 from itertools import combinations
 from sklearn.preprocessing import Imputer
 import time
-from regressor import * 
-from classifier import *
-from featureEngineering import *
+from ..prediction.regressor import * 
+from ..prediction.classifier import *
+from ..feature.featureEngineering import *
 def preprocessData(X_train,X_test):
 
     # df = X_train.values
