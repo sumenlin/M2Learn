@@ -5,11 +5,11 @@ Targets:
 general model
 '''
 
-from regressor import * 
-from classifier import *
-from featureEngineering import *
-from ensemble import *
-from preprocessing import *
+from ..prediction.regressor import * 
+from ..prediction.classifier import *
+from ..feature.featureEngineering import *
+from ..prediction.ensemble import *
+from ..preprocessing.preprocessing import *
 
 def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', identification = None, 
                      compliance = 0.0, 
@@ -85,7 +85,7 @@ def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', i
     df = df.rename(index=str,columns={identification:'id_'})
     yhead = list(set(target.columns.tolist())-set([identification]))[0]
     target = target.rename(index=str,columns={identification:'id_',yhead:'target'})
-    df = pd.merge(df,target,on='id')
+    df = pd.merge(df,target,on='id_')
     data_train = df[df.id_.isin(train_msk)].reset_index(drop=True)
     data_test = df[df.id_.isin(test_msk)].reset_index(drop=True)
 
