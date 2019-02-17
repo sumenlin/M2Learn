@@ -12,10 +12,14 @@ from __future__ import division, print_function  # Python 2 compatibility
 __author__ = "Suwen"
 __version__ = "0.1.0"
 
-from .preprocessing import *
+from .regressor import *
+from .classifier import *
+from .ensemble import *
 
-__all__ = ('featureImputation',
-           'modalImputation',
-           'cutLowCompliance',
-           'dataPreprocessing')
+
+__all__ = ('ensembleClassifier',
+           'oneRegressor',
+           'ensembleRegressor',
+           'oneClassifier'
+           )
 
