@@ -53,11 +53,11 @@ setup(name="M2Learn",
     ],
     keywords = ["data mining","machine learning","multi-modal data"],
     packages=[
-        "M2Learn",
-        "M2Learn.feature",
-        "M2Learn.pipeline",
-        "M2Learn.prediction",
-        "M2Learn.preprocessing",
+        "m2learn",
+        "m2learn.feature",
+        "m2learn.pipeline",
+        "m2learn.prediction",
+        "m2learn.preprocessing",
     ],
     install_requires=[
         "numpy",
@@ -66,7 +66,7 @@ setup(name="M2Learn",
         "imbalanced-learn == 0.4.0",
     ],
     package_data={
-        'M2Learn': [
+        'm2learn': [
             'LICENSE',
             'README.rst',
         ]
