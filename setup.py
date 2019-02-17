@@ -38,7 +38,7 @@ setup(name="M2Learn",
     long_description=long_description,
     author="Suwen Lin",
     # author_email="slin4 AT nd DOT edu".replace(" AT ", "@").replace(" DOT ", "."),
-    url="https://github.com/sumenlin/M2Learn",
+    url="https://github.com/sumenlin/M2Learn/",
     license="new BSD",
     classifiers=[
         "Development Status :: 4 - Beta",
