@@ -13,24 +13,25 @@ __author__ = "Suwen"
 __version__ = "0.1.0"
 
 try:
-    # from .Arms import *
-    from M2Learn import preprocessing
+    from .preprocessing import *
+    # from M2Learn import preprocessing
 except ImportError:
     pass
 
 try:
-    from M2Learn import feature
+    from .feature import *
+    #from M2Learn import feature
 except ImportError:
     pass
 
 try:
-    # from .Policies import *
-    from M2Learn import prediction
+    from .prediction import *
+    # from M2Learn import prediction
 except ImportError:
     pass
 
 try:
-    # from .Policies import *
-    from M2Learn import pipeline
+    from .pipeline import *
+    # from M2Learn import pipeline
 except ImportError:
     pass
