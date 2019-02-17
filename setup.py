@@ -54,7 +54,8 @@ setup(name="M2Learn",
     keywords = ["data mining","machine learning","multi-modal data"],
     packages=[
         "src",
-        "src.feature",
+        "M2Learn"
+        "M2Learnfeature",
         "src.pipeline",
         "src.prediction",
         "src.preprocessing",
