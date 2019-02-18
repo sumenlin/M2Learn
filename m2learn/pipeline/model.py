@@ -19,6 +19,16 @@ def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', id
                      pca_number = None,cv_number = 3,
                      metric = 'neg_mean_squared_error',
                      selectionFeatureKind = 'all',N = None):
+    """Perform feature imputation for the data "modal".
+    
+    :param modal: data 
+    :type modal: dataframe
+    :param featureImputor: method for imputation
+    :type featureImputor: int, str, optional (default='mean')
+    :returns: imputed data
+    :rtype: dataframe
+    
+    """
     df, target, featureName,fileName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImpute = modalImpute, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
     #PCA method
     df = df.rename(index=str,columns={identification:'id_'})
@@ -80,6 +90,16 @@ def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', i
                      pca_number = None,cv_number = 3,
                      metric = 'accuracy',
                      selectionFeatureKind = 'all',N = None):
+    """Perform feature imputation for the data "modal".
+    
+    :param modal: data 
+    :type modal: dataframe
+    :param featureImputor: method for imputation
+    :type featureImputor: int, str, optional (default='mean')
+    :returns: imputed data
+    :rtype: dataframe
+    
+    """
     df, target, featureName,fileName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImpute = modalImpute, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
     #PCA method
     df = df.rename(index=str,columns={identification:'id_'})
