@@ -13,20 +13,20 @@ __author__ = "Suwen"
 __version__ = "0.1.0"
 
 try:
-    # from .preprocessing import *
-    from m2learn import preprocessing
+    from .preprocessing import *
+    # from m2learn import preprocessing
 except ImportError:
     pass
 
 try:
-    # from .feature import *
-    from m2learn import feature
+    from .feature import *
+    # from m2learn import feature
 except ImportError:
     pass
 
 try:
-    # from .prediction import *
-    from m2learn import prediction
+    from .prediction import *
+    # from m2learn import prediction
 except ImportError:
     pass
 
