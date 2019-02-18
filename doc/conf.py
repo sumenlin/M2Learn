@@ -87,7 +87,7 @@ copyright = 'Suwen Lin'
 # built documents.
 #
 # The short X.Y version.
-from imblearn import __version__
+from m2learn import __version__
 version = __version__
 # The full version, including alpha/beta/rc tags.
 release = __version__
