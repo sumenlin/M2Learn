@@ -35,3 +35,8 @@ try:
     from m2learn import pipeline
 except ImportError:
     pass
+
+try:
+    import model
+except ImportError:
+    pass
