@@ -15,6 +15,17 @@ from sklearn.cluster import KMeans
 
 #feature imputation
 def featureImputation(modal,fcount,path,featureImputor = 'mean'):
+    """Perform feature imputation for the data "modal".
+    Parameters
+    ----------
+    modal : dataframe
+    featureImputor : int, str, optional (default='mean')
+        If ``int``, the value used to fill the missing.  
+        If ``str``, the method used to fill the missing
+            If “mean”, then replace missing values using the mean along each column. Can only be used with numeric data.
+            If “median”, then replace missing values using the median along each column. Can only be used with numeric data.
+            If “mode”, then replace missing using the most frequent value along each column. Can be used with strings or numeric data.
+    """
     if type(featureImputor) == int:
         modal = modal.fillna(featureImputor)
     elif featureImputor == 'mean':
@@ -28,7 +39,7 @@ def featureImputation(modal,fcount,path,featureImputor = 'mean'):
     return modal
 
 #modal imputation
-def modalImputation(df,featureName,fileName,fileName_,fcount,identification,modalImputor = {},seed = 40,clusterK = 5):
+def modalImputation(df,featureName={},fileName={},fileName_={},fcount,identification,modalImputor = {},seed = 40,clusterK = 5):
     df = df.rename(index=str,columns = {identification:'id_'})
 
     ndf = df
