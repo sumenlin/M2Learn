@@ -1,252 +1,84 @@
 ######################
-imbalanced-learn API
+m2learn API
 ######################
 
-This is the full API documentation of the `imbalanced-learn` toolbox.
+This is the full API documentation of the `m2learn` toolbox.
 
-.. _under_sampling_ref:
+.. _preprocessing_ref:
 
-:mod:`imblearn.under_sampling`: Under-sampling methods
-======================================================
-
-.. automodule:: imblearn.under_sampling
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-Prototype generation
---------------------
-
-.. automodule:: imblearn.under_sampling._prototype_generation
-   :no-members:
-   :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: class.rst
-
-   under_sampling.ClusterCentroids
-
-Prototype selection
--------------------
-
-.. automodule:: imblearn.under_sampling._prototype_selection
-   :no-members:
-   :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: class.rst
-
-   under_sampling.CondensedNearestNeighbour
-   under_sampling.EditedNearestNeighbours
-   under_sampling.RepeatedEditedNearestNeighbours
-   under_sampling.AllKNN
-   under_sampling.InstanceHardnessThreshold
-   under_sampling.NearMiss
-   under_sampling.NeighbourhoodCleaningRule
-   under_sampling.OneSidedSelection
-   under_sampling.RandomUnderSampler
-   under_sampling.TomekLinks
-
-.. _over_sampling_ref:
-
-:mod:`imblearn.over_sampling`: Over-sampling methods
+:mod:`m2learn.preprocessin`: Preprocessing methods
 ====================================================
 
-.. automodule:: imblearn.over_sampling
+.. automodule:: m2learn.preprocessing
     :no-members:
     :no-inherited-members:
 
-.. currentmodule:: imblearn
+.. currentmodule:: m2learn
 
 .. autosummary::
    :toctree: generated/
    :template: class.rst
 
-   over_sampling.ADASYN
-   over_sampling.RandomOverSampler
-   over_sampling.SMOTE
-   over_sampling.SMOTENC
+   preprocessing.featureImputation
+   preprocessing.modalImputation
+   preprocessing.cutLowCompliance
+   preprocessing.dataPreprocessing
 
 
-.. _combine_ref:
+.. _feature_ref:
 
-:mod:`imblearn.combine`: Combination of over- and under-sampling methods
+:mod:`m2learn.feature`: Feature engineering methods
+====================================================
+
+.. automodule:: m2learn.feature
+    :no-members:
+    :no-inherited-members:
+
+.. currentmodule:: m2learn
+
+.. autosummary::
+   :toctree: generated/
+   :template: class.rst
+
+   feature.featureExtraction
+   feature.featurePCA
+   feature.selectFeature
+
+
+
+.. _prediction_ref:
+
+:mod:`m2learn.prediction`:  Prediction models
 ========================================================================
 
-.. automodule:: imblearn.combine
+.. automodule:: m2learn.prediction
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: imblearn
+.. currentmodule:: m2learn
 
 .. autosummary::
    :toctree: generated/
    :template: class.rst
 
-   combine.SMOTEENN
-   combine.SMOTETomek
+   prediction.oneRegressor
+   prediction.oneClassifier
 
-.. _ensemble_ref:
-
-:mod:`imblearn.ensemble`: Ensemble methods
-==========================================
-
-.. automodule:: imblearn.ensemble
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: class.rst
-
-   ensemble.BalanceCascade
-   ensemble.BalancedBaggingClassifier
-   ensemble.BalancedRandomForestClassifier
-   ensemble.EasyEnsemble
-   ensemble.EasyEnsembleClassifier
-   ensemble.RUSBoostClassifier
-
-.. _keras_ref:
-
-:mod:`imblearn.keras`: Batch generator for Keras
-================================================
-
-.. automodule:: imblearn.keras
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: class.rst
-
-   keras.BalancedBatchGenerator
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-
-   keras.balanced_batch_generator
-
-.. _tensorflow_ref:
-
-:mod:`imblearn.tensorflow`: Batch generator for TensorFlow
-==========================================================
-
-.. automodule:: imblearn.tensorflow
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-              
-   tensorflow.balanced_batch_generator
-
-.. _misc_ref:
-   
-Miscellaneous
-=============
-
-Imbalance-learn provides some fast-prototyping tools.
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: class.rst
-
-   FunctionSampler
 
 .. _pipeline_ref:
 
-:mod:`imblearn.pipeline`: Pipeline
-==================================
+:mod:`m2learn.pipeline`: Integrated machine learning pipeline
+==========================================
 
-.. automodule:: imblearn.pipeline
+.. automodule:: m2learn.pipeline
     :no-members:
     :no-inherited-members:
 
-.. currentmodule:: imblearn
+.. currentmodule:: m2learn
 
 .. autosummary::
    :toctree: generated/
    :template: class.rst
 
-   pipeline.Pipeline
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-
-   pipeline.make_pipeline
-
-.. _metrics_ref:
-
-:mod:`imblearn.metrics`: Metrics
-================================
-
-.. automodule:: imblearn.metrics
-   :no-members:
-   :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-
-   metrics.classification_report_imbalanced
-   metrics.sensitivity_specificity_support
-   metrics.sensitivity_score
-   metrics.specificity_score
-   metrics.geometric_mean_score
-   metrics.make_index_balanced_accuracy
-
-.. _datasets_ref:
-
-:mod:`imblearn.datasets`: Datasets
-==================================
-
-.. automodule:: imblearn.datasets
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-
-   datasets.make_imbalance
-   datasets.fetch_datasets
-
-:mod:`imblearn.utils`: Utilities
-================================
-
-.. automodule:: imblearn.utils
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: imblearn
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-
-   utils.estimator_checks.check_estimator
-   utils.check_neighbors_object
-   utils.check_ratio
-   utils.check_sampling_strategy
+   pipeline.generalRegressor
+   pipeline.generalClassifier

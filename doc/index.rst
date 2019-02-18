@@ -19,7 +19,6 @@ Welcome to m2learn documentation!
    :hidden:
    :caption: Documentation
 
-   user_guide
    api
 
 .. toctree::
@@ -36,11 +35,6 @@ Welcome to m2learn documentation!
 
 Information to install, test, and contribute to the package.
 
-`User Guide <user_guide.html>`_
--------------------------------
-
-The main documentation. This contains an in-depth description of all
-algorithms and how to apply them.
 
 `API Documentation <api.html>`_
 -------------------------------
