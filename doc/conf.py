@@ -18,12 +18,12 @@ import sys
 import sphinx_rtd_theme
 
 
-# import mock
+import mock
 
 # MOCK_MODULES = ['pandas','numpy', 'scipy', 'sklearn', 'imblearn', '__future__']
 # for mod_name in MOCK_MODULES:
 #     sys.modules[mod_name] = mock.Mock()
-sys.path.insert(0, os.path.abspath('../m2learn'))
+sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
 
