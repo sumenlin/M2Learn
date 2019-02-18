@@ -21,12 +21,6 @@ Welcome to m2learn documentation!
 
    api
 
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-   :caption: Tutorial - Examples
-
-   auto_examples/index
 
 
 
@@ -42,9 +36,6 @@ Information to install, test, and contribute to the package.
 The exact API of all functions and classes, as given in the
 doctring. The API documents expected types and allowed features for
 all functions, and all parameters available for the algorithms.
-
-`Examples <auto_examples/index.html>`_
---------------------------------------
 
 
 See the `README <https://github.com/sumenlin/M2Learn/blob/master/README.rst>`_
