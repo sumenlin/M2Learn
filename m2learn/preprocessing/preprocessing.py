@@ -1,12 +1,5 @@
 #!/usr/bin/python
 # encoding=utf8
-"""
-.. module:: preprocessing
-
-.. moduleauthor:: S.L.
-
-
-"""
 
 import pandas as pd
 import os
@@ -17,11 +10,15 @@ from sklearn.cluster import KMeans
 
 #feature imputation
 def featureImputation(modal,fcount,path,featureImputor = 'mean'):
-    """Perform feature imputation for the data "modal".
+    """Perform feature imputation for the data.
     
     :param modal: data 
     :type modal: dataframe
-    :param featureImputor: method for imputation
+    :param featureImputor: method for ii\
+                           if ``int``, use the number for imputation\
+                           if ``mean``, use the mean of the feature column for imputation\
+                           if ``median``, use the median of the feature column for imputation\
+                           if ``mode``, use the most_frequent value of the feature column for imputation
     :type featureImputor: int, str, optional (default='mean')
     :returns: imputed data
     :rtype: dataframe
