@@ -12,56 +12,18 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+import os
+import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
 
 
-import os
-import sys
 import mock
-import pygame
-from pygame.locals import *
 
-sys.modules['pygame'] = mock.Mock()
-sys.modules['pygame.constants'] = mock.Mock()
-
-sys.path.insert(0, os.path.abspath('../'))
-
-
-MOCK_MODULES = [
-    'pygame',
-    'numpy',
-    'pandas',
-    'imblance',
-    'sklearn']
-
+MOCK_MODULES = ['numpy', 'scipy', 'sklearn', 'imblearn', '__future__']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = mock.Mock()
-
-
-# -- General configuration ------------------------------------------------
-
-# If your documentation needs a minimal Sphinx version, state it here.
-#
-# needs_sphinx = '1.0'
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
-# extensions = [
-#     'sphinx.ext.autodoc',
-#     'sphinx.ext.doctest',
-#     'sphinx.ext.intersphinx',
-#     'sphinx.ext.todo',
-#     'sphinx.ext.coverage',
-#     'sphinx.ext.mathjax',
-#     'sphinx.ext.ifconfig',
-#     'sphinx.ext.napoleon',
-#     'sphinx.ext.viewcode'
-# ]
-# sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
