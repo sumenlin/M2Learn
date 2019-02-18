@@ -18,7 +18,7 @@
 import sphinx_rtd_theme
 
 
-iimport os
+import os
 import sys
 import mock
 import pygame
