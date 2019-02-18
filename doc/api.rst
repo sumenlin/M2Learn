@@ -10,31 +10,16 @@ This is the full API documentation of the `m2learn` toolbox.
 ====================================================
 
 .. automodule:: m2learn.preprocessing
-    :no-members:
-    :no-inherited-members:
-
-.. currentmodule:: m2learn
-
-.. autosummary::
-   :toctree: generated/
-   :template: function.rst
-
-   preprocessing.featureImputation
-   preprocessing.modalImputation
-   preprocessing.cutLowCompliance
-   preprocessing.dataPreprocessing
-
+    :members:
 
 .. _feature_ref:
 
 :mod:`m2learn.feature`: Feature engineering methods
 ====================================================
 
-.. automodule:: template
-    :members:
-    :undoc-members:
-    :inherited-members:
-    :show-inheritance:
+.. automodule:: m2learn.feature
+    :no-members:
+    :no-inherited-members:
 
 .. currentmodule:: m2learn
 
