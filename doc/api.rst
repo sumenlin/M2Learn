@@ -30,15 +30,17 @@ This is the full API documentation of the `m2learn` toolbox.
 :mod:`m2learn.feature`: Feature engineering methods
 ====================================================
 
-.. automodule:: m2learn.feature
-    :no-members:
-    :no-inherited-members:
+.. automodule:: template
+    :members:
+    :undoc-members:
+    :inherited-members:
+    :show-inheritance:
 
 .. currentmodule:: m2learn
 
 .. autosummary::
    :toctree: generated/
-   :template: class.rst
+   :template: function.rst
 
    feature.featureExtraction
    feature.featurePCA
@@ -59,7 +61,7 @@ This is the full API documentation of the `m2learn` toolbox.
 
 .. autosummary::
    :toctree: generated/
-   :template: class.rst
+   :template: function.rst
 
    prediction.oneRegressor
    prediction.oneClassifier
@@ -78,7 +80,7 @@ This is the full API documentation of the `m2learn` toolbox.
 
 .. autosummary::
    :toctree: generated/
-   :template: class.rst
+   :template: function.rst
 
    pipeline.generalRegressor
    pipeline.generalClassifier
