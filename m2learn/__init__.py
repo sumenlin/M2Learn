@@ -36,7 +36,3 @@ try:
 except ImportError:
     pass
 
-try:
-    import model
-except ImportError:
-    pass
