@@ -15,7 +15,7 @@
 import os
 import sys
 import sphinx_rtd_theme
-from sklearn.externals.six import u
+# from sklearn.externals.six import u
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -77,8 +77,10 @@ plot_gallery = True
 master_doc = 'index'
 
 # General information about the project.
-project = u('imbalanced-learn')
-copyright = u('2016 - 2017, G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas')
+# project = u('imbalanced-learn')
+# copyright = u('2016 - 2017, G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas')
+project = 'M2Learn'
+copyright = 'Suwen Lin'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -213,7 +215,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'imbalanced-learndoc'
+htmlhelp_basename = 'm2learn-learndoc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -231,10 +233,11 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_documents = [
-    ('index', 'imbalanced-learn.tex', u('imbalanced-learn Documentation'),
-     u('G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas'), 'manual'),
-]
+
+# latex_documents = [
+#     ('index', 'imbalanced-learn.tex', u('imbalanced-learn Documentation'),
+#      u('G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas'), 'manual'),
+# ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -255,17 +258,16 @@ latex_documents = [
 
 # intersphinx configuration
 intersphinx_mapping = {
-    'python': ('https://docs.python.org/{.major}'.format(
-        sys.version_info), None),
+    # 'python': ('https://docs.python.org/{.major}'.format(sys.version_info), None),
     'numpy': ('https://docs.scipy.org/doc/numpy/', None),
     'scipy': ('https://docs.scipy.org/doc/scipy/reference', None),
-    'matplotlib': ('https://matplotlib.org/', None),
+    # 'matplotlib': ('https://matplotlib.org/', None),
     'sklearn': ('http://scikit-learn.org/stable', None)
 }
 
 # sphinx-gallery configuration
 sphinx_gallery_conf = {
-    'doc_module': 'imblearn',
+    'doc_module': 'm2learn',
     'backreferences_dir': os.path.join('generated'),
     'reference_url': {
         'imblearn': None}
@@ -279,6 +281,7 @@ sphinx_gallery_conf = {
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
+
 man_pages = [('index', 'imbalanced-learn', u'imbalanced-learn Documentation',
               [u'G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas'], 1)]
 
@@ -290,11 +293,11 @@ man_pages = [('index', 'imbalanced-learn', u'imbalanced-learn Documentation',
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
-texinfo_documents = [
-    ('index', 'imbalanced-learn', u'imbalanced-learn Documentation',
-     u'G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas', 'imbalanced-learn',
-     'Toolbox for imbalanced dataset in machine learning.', 'Miscellaneous'),
-]
+# texinfo_documents = [
+#     ('index', 'imbalanced-learn', u'imbalanced-learn Documentation',
+#      u'G. Lemaitre, F. Nogueira, D. Oliveira, C. Aridas', 'imbalanced-learn',
+#      'Toolbox for imbalanced dataset in machine learning.', 'Miscellaneous'),
+# ]
 
 
 # def generate_example_rst(app, what, name, obj, options, lines):
@@ -309,8 +312,8 @@ texinfo_documents = [
 
 # Config for sphinx_issues
 
-issues_uri = 'https://github.com/scikit-learn-contrib/imbalanced-learn/issues/{issue}'
-issues_github_path = 'scikit-learn-contrib/imbalanced-learn'
+issues_uri = 'https://github.com/sumenlin/M2Learn/issues/{issue}'
+issues_github_path = 'sumenlin/M2Learn'
 issues_user_uri = 'https://github.com/{user}'
 
 
@@ -333,6 +336,5 @@ def setup(app):
 
 # The following is used by sphinx.ext.linkcode to provide links to github
 linkcode_resolve = make_linkcode_resolve('imblearn',
-                                         u'https://github.com/scikit-learn-contrib/'
-                                         'imbalanced-learn/blob/{revision}/'
+                                         u'https://github.com/sumenlin/M2Learn/blob/{revision}/'
                                          '{package}/{path}#L{lineno}')
