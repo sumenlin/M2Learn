@@ -1,15 +1,12 @@
 #!/usr/bin/python
 # encoding=utf8
-'''
-Tagets: 
-loading the data
-        If ``int``, the value used to fill the missing.  
-        If ``str``, the method used to fill the missing
-            If “mean”, then replace missing values using the mean along each column. Can only be used with numeric data.
-            If “median”, then replace missing values using the median along each column. Can only be used with numeric data.
-            If “mode”, then replace missing using the most frequent value along each column. Can be used with strings or numeric data.
-'''
+"""
+.. module:: preprocessing
 
+.. moduleauthor:: S.L.
+
+
+"""
 
 import pandas as pd
 import os
