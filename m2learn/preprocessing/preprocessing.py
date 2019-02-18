@@ -16,21 +16,20 @@ from sklearn.cluster import KMeans
 #feature imputation
 def featureImputation(modal,fcount,path,featureImputor = 'mean'):
     """Perform feature imputation for the data "modal".
-    :Parameters:
-    ----------
-    :modal: dataframe
-    :featureImputor: int, str, optional (default='mean')
+    
+    :param modal: data 
+    :type modal: dataframe
+    :param featureImputor: method for imputation
         If ``int``, the value used to fill the missing.  
         If ``str``, the method used to fill the missing
             If “mean”, then replace missing values using the mean along each column. Can only be used with numeric data.
             If “median”, then replace missing values using the median along each column. Can only be used with numeric data.
             If “mode”, then replace missing using the most frequent value along each column. Can be used with strings or numeric data.
+    :type featureImputor: int, str, optional (default='mean')
     :returns: imputed data
     :rtype: dataframe
 
-    :Example:
-        >>> from m2learn.feature import featureImputation
-        >>> a = featureImputation(modal,fcount,path,featureImputor = 'mean'))
+    
 
     """
     if type(featureImputor) == int:
