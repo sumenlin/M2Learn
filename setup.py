@@ -1,11 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8; mode: python -*-
-"""
-setup.py script for the SMPyBandits project (https://github.com/SMPyBandits/SMPyBandits)
-References:
-- https://packaging.python.org/en/latest/distributing/#setup-py
-- https://the-hitchhikers-guide-to-packaging.readthedocs.io/en/latest/creation.html#setup-py-description
-"""
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
@@ -24,10 +18,10 @@ if path.exists(README):
         # print("Using a long_description of length,", len(long_description), "from file", README)  # DEBUG
 
 version = "0.1.0"
-try:
-    from SMPyBandits import __version__ as version
-except ImportError:
-    print("Error: cannot import version from M2Learn.")
+# try:
+#     from SMPyBandits import __version__ as version
+# except ImportError:
+#     print("Error: cannot import version from M2Learn.")
 # FIXME revert when done uploading the first version to PyPI
 # version = "0.0.2.dev2"
 
@@ -60,10 +54,11 @@ setup(name="M2Learn",
         "m2learn.preprocessing",
     ],
     install_requires=[
-        "numpy",
-        "pandas >= 0.22.0",
+        "numpy >= 1.16.1",
+        "pandas >= 0.24.1",
         "scikit-learn == 0.20.0",
         "imbalanced-learn == 0.4.0",
+        "xgboost == 0.81"
     ],
     package_data={
         'm2learn': [
