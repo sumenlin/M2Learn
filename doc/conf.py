@@ -21,7 +21,7 @@ import sphinx_rtd_theme
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('sphinxext'))
-from github_link import make_linkcode_resolve
+# from github_link import make_linkcode_resolve
 import sphinx_gallery
 
 # -- General configuration ------------------------------------------------
@@ -335,6 +335,6 @@ def setup(app):
 # texinfo_no_detailmenu = False
 
 # The following is used by sphinx.ext.linkcode to provide links to github
-linkcode_resolve = make_linkcode_resolve('imblearn',
-                                         u'https://github.com/sumenlin/M2Learn/blob/{revision}/'
-                                         '{package}/{path}#L{lineno}')
+# linkcode_resolve = make_linkcode_resolve('imblearn',
+#                                          u'https://github.com/sumenlin/M2Learn/blob/{revision}/'
+#                                          '{package}/{path}#L{lineno}')
