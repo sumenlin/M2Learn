@@ -17,6 +17,14 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
 
+
+import mock
+
+MOCK_MODULES = ['numpy', 'scipy', 'sklearn', 'imblearn', '__future__']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = mock.Mock()
+sys.path.insert(0, os.path.abspath('../..'))
+
 # -- Project information -----------------------------------------------------
 
 project = u'm2learn'
@@ -41,7 +49,7 @@ release = u''
 extensions = [
     # 'sphinx.ext.mathjax',
     # 'sphinx.ext.ifconfig',
-    # 'sphinx.ext.viewcode',
+    'sphinx.ext.viewcode',
     # 'sphinx.ext.githubpages',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
