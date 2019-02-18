@@ -12,11 +12,7 @@ from __future__ import division, print_function  # Python 2 compatibility
 __author__ = "Suwen"
 __version__ = "0.1.0"
 
-from .preprocessing import featureImputation
-from .preprocessing import modalImputation
-from .preprocessing import cutLowCompliance
-from .preprocessing import dataPreprocessing
-
+from .preprocessing import *
 
 __all__ = ('featureImputation',
            'modalImputation',
