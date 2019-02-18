@@ -22,7 +22,7 @@ import sphinx_rtd_theme
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('sphinxext'))
 # from github_link import make_linkcode_resolve
-import sphinx_gallery
+# import sphinx_gallery
 
 # -- General configuration ------------------------------------------------
 
@@ -41,7 +41,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'numpydoc',
     'sphinx_issues',
-    'sphinx_gallery.gen_gallery',
+    # 'sphinx_gallery.gen_gallery',
 ]
 
 # this is needed for some reason...
@@ -266,12 +266,12 @@ intersphinx_mapping = {
 }
 
 # sphinx-gallery configuration
-sphinx_gallery_conf = {
-    'doc_module': 'm2learn',
-    'backreferences_dir': os.path.join('generated'),
-    'reference_url': {
-        'imblearn': None}
-}
+# sphinx_gallery_conf = {
+#     'doc_module': 'm2learn',
+#     'backreferences_dir': os.path.join('generated'),
+#     'reference_url': {
+#         'imblearn': None}
+# }
 
 # -- Options for manual page output ---------------------------------------
 
