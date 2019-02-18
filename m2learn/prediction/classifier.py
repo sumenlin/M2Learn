@@ -6,8 +6,6 @@ regression model for one file
 '''
 
 import pandas as pd
-from collections import Counter
-
 
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import LinearRegression, LogisticRegression
@@ -15,7 +13,6 @@ from sklearn import linear_model
 from sklearn import svm
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
-# from sklearn.metrics import make_scorer,roc_curve, auc, roc_auc_score , precision_score, recall_score, f1_score,confusion_matrix, classification_report
 from sklearn.metrics import explained_variance_score,mean_absolute_error,mean_squared_error,mean_squared_log_error, median_absolute_error,r2_score
 from sklearn.model_selection import train_test_split,cross_val_score,KFold,ShuffleSplit,LeaveOneOut
 from sklearn import preprocessing
@@ -25,12 +22,7 @@ import datetime
 import time
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
 from sklearn.decomposition import PCA
 from itertools import combinations
 from sklearn.preprocessing import Imputer

@@ -6,7 +6,6 @@ regression model for one file
 '''
 
 import pandas as pd
-from collections import Counter
 
 
 from sklearn.model_selection import GridSearchCV
@@ -27,12 +26,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.naive_bayes import GaussianNB
-from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
-from sklearn.neural_network import MLPClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
 from sklearn.decomposition import PCA
 from itertools import combinations
 from sklearn.preprocessing import Imputer
