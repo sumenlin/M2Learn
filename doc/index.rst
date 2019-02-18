@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ##########################################
-Welcome to imbalanced-learn documentation!
+Welcome to m2learn documentation!
 ##########################################
 
 .. toctree::
@@ -29,13 +29,7 @@ Welcome to imbalanced-learn documentation!
 
    auto_examples/index
 
-.. toctree::
-   :maxdepth: 1
-   :hidden:
-   :caption: Addtional Information
 
-   whats_new
-   about
 
 `Getting started <install.html>`_
 ---------------------------------
@@ -58,18 +52,6 @@ all functions, and all parameters available for the algorithms.
 `Examples <auto_examples/index.html>`_
 --------------------------------------
 
-A set of examples illustrating the use of the different algorithms. It
-complements the `User Guide <user_guide.html>`_.
 
-`What's new <whats_new.html>`_
-------------------------------
-
-Log of the imbalanced-learn history.
-
-`About imbalanced-learn <about.html>`_
---------------------------------------
-
-Just to know about history of imbalanced-learn.
-
-See the `README <https://github.com/scikit-learn-contrib/imbalanced-learn/blob/master/README.rst>`_
+See the `README <https://github.com/sumenlin/M2Learn/blob/master/README.rst>`_
 for more information.
