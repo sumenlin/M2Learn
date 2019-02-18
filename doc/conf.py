@@ -20,9 +20,9 @@ import sphinx_rtd_theme
 
 import mock
 
-# MOCK_MODULES = ['pandas','numpy', 'scipy', 'sklearn', 'imblearn', '__future__']
-# for mod_name in MOCK_MODULES:
-#     sys.modules[mod_name] = mock.Mock()
+MOCK_MODULES = ['sklearn.tree','scipy.sparse','sklearn.ensemble','sklearn.metrics','sklearn.preprocessing','sklearn.neighbors','pandas','scipy.stats','numpy','sklearn.cluster','sklearn.decomposition','sklearn.linear_model','sklearn.model_selection','imblearn.over_sampling', 'scipy', 'sklearn', 'imblearn', '__future__']
+for mod_name in MOCK_MODULES:
+    sys.modules[mod_name] = mock.Mock()
 sys.path.insert(0, os.path.abspath('..'))
 
 # -- Project information -----------------------------------------------------
