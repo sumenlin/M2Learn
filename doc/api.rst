@@ -6,11 +6,11 @@ This is the full API documentation of the `m2learn` toolbox.
 
 .. _preprocessing_ref:
 
-:mod:`m2learn.preprocessin`: Preprocessing methods
+:mod:`m2learn.preprocessing`: Preprocessing methods
 ====================================================
 
-.. automodule:: m2learn.preprocessing
-    :members:
+.. automodule:: m2learn.preprocessing.preprocessing
+   :members: 
 
 .. _feature_ref:
 
