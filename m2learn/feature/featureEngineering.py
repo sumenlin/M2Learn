@@ -63,7 +63,7 @@ def selectFeature(data,y, kind = 'all',N = None):
     #data feature exclude identification
     if N==None:
         N = min(len(data.columns.tolist()),50)
-        LN = range(5,N+1,4)
+        LN = range(5,N+1,5)
     elif type(N)==int:
         LN = [N]
     elif type(N)==list:
