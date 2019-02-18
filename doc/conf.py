@@ -18,12 +18,12 @@ import sys
 import sphinx_rtd_theme
 
 
-import mock
+# import mock
 
-MOCK_MODULES = ['numpy', 'scipy', 'sklearn', 'imblearn', '__future__']
-for mod_name in MOCK_MODULES:
-    sys.modules[mod_name] = mock.Mock()
-sys.path.insert(0, os.path.abspath('../..'))
+# MOCK_MODULES = ['pandas','numpy', 'scipy', 'sklearn', 'imblearn', '__future__']
+# for mod_name in MOCK_MODULES:
+#     sys.modules[mod_name] = mock.Mock()
+sys.path.insert(0, os.path.abspath('../m2learn'))
 
 # -- Project information -----------------------------------------------------
 
@@ -32,9 +32,9 @@ copyright = u'2019, Suwen Lin'
 author = u'Suwen Lin'
 
 # The short X.Y version
-version = u''
+version = '0.1.0'
 # The full version, including alpha/beta/rc tags
-release = u''
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
