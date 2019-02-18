@@ -40,7 +40,7 @@ def featureImputation(modal,fcount,path,featureImputor = 'mean'):
     return modal
 
 #modal imputation
-def modalImputation(df,featureName={},fileName={},fileName_={},fcount,identification,modalImputor = {},seed = 40,clusterK = 5):
+def modalImputation(df,fcount,identification,featureName={},fileName={},fileName_={},modalImputor = {},seed = 40,clusterK = 5):
     df = df.rename(index=str,columns = {identification:'id_'})
 
     ndf = df
