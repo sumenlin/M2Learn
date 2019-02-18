@@ -11,18 +11,6 @@ from ..feature.featureEngineering import *
 from ..prediction.ensemble import *
 from ..preprocessing.preprocessing import *
 
-def public_fn_with_sphinxy_docstring(name, state=None):
-    """This function does something.
-
-    :param name: The name to use.
-    :type name: str.
-    :param state: Current state to be in.
-    :type state: bool.
-    :returns:  int -- the return code.
-    :raises: AttributeError, KeyError
-
-    """
-    return 0
 
 def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', identification = None, 
                      compliance = 0.0, 
@@ -36,7 +24,7 @@ def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', id
     
     :param modal: data 
     :type modal: dataframe
-    :param featureImputor: method for imputation
+    :param featureImputor: method for iii
     :type featureImputor: int, str, optional (default='mean')
     :returns: imputed data
     :rtype: dataframe
