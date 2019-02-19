@@ -1,5 +1,6 @@
-# Multi-modal-ML-pipeline
-(Under constructing) a automated machine learning pipeline for multi-modal sensor data.
+M2Learn: a python library for multi-modal data learning
+
+A automated machine learning pipeline for multi-modal sensor data.
 
 As the development of modern multi-sensor systems, exploring real-time multi-modal data has become popular and attractive. There are two challenge in this kind of data. One is the high-dimension features set from various sensor sources. The other is the sensor level missing, which means some subjects may have nothing for one sensor source and thus is quite different from random missings for some features. 
 
