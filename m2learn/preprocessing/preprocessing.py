@@ -93,7 +93,7 @@ def modalImputation(df,featureName,identification,modalImputor = {},seed = 40,cl
     df = df.rename(index=str,columns = {identification:'id_'})
 
     ndf = df
-    for _fname,_ffeature in featureName.items()
+    for _fname,_ffeature in featureName.items():
         iX = _ffeature
         if _fname not in modalImputor:
             otherX = []
