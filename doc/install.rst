@@ -12,6 +12,7 @@ The m2learn package requires the following dependencies:
 * scikit-learn (>=0.20)
 * imbalanced-learn (>=0.4.0)
 * pandas (>=0.22.0)
+* xgboost (>=0.81)
 
 
 Install
