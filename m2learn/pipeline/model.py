@@ -15,7 +15,7 @@ from ..preprocessing.preprocessing import *
 def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', identification = None, 
                      compliance = 0.0, 
                      featureImp = True, featureImputor = 'mean', 
-                     modalImpute = True, modalImputor = {},clusterIMP = 5,
+                     modalImp = True, modalImputor = {},clusterIMP = 5,
                      replace = False,random_state = 40,
                      pca_number = None,cv_number = 3,
                      metric = 'neg_mean_squared_error',
@@ -30,7 +30,7 @@ def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', id
     :rtype: dataframe
     
     """
-    df, target, featureName,fileName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImpute = modalImpute, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
+    df, target, featureName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImp = modalImp, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
     #PCA method
     df = df.rename(index=str,columns={identification:'id_'})
     yhead = list(set(target.columns.tolist())-set([identification]))[0]
@@ -86,7 +86,7 @@ def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', id
 def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', identification = None, 
                      compliance = 0.0, 
                      featureImp = True, featureImputor = 'mean', 
-                     modalImpute = True, modalImputor = {},clusterIMP = 5,
+                     modalImp = True, modalImputor = {},clusterIMP = 5,
                      replace = False,random_state = 40,
                      pca_number = None,cv_number = 3,
                      metric = 'accuracy',
@@ -101,7 +101,7 @@ def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', i
     :rtype: dataframe
     
     """
-    df, target, featureName,fileName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImpute = modalImpute, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
+    df, target, featureName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImp = modalImp, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
     #PCA method
     df = df.rename(index=str,columns={identification:'id_'})
     yhead = list(set(target.columns.tolist())-set([identification]))[0]
