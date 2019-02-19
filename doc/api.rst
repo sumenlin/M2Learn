@@ -1,5 +1,5 @@
 ######################
-m2learn API
+M2Learn API
 ######################
 
 This is the full API documentation of the `M2Learn` toolbox.
