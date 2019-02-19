@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ##########################################
-Welcome to m2learn documentation!
+Welcome to M2Learn documentation!
 ##########################################
 
 .. toctree::

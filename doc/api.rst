@@ -2,7 +2,7 @@
 m2learn API
 ######################
 
-This is the full API documentation of the `m2learn` toolbox.
+This is the full API documentation of the `M2Learn` toolbox.
 ============================================================
 
 Functions for data preprocessing, including feature quality, feature mputation, source missing imputation.
