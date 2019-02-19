@@ -13,7 +13,7 @@ def featureImputation(modal,featureImputor = 'mean'):
     """Perform feature imputation for the data.
     
     :param modal: data 
-    :type modal: dataframe
+    :type modal: data frame
     :param featureImputor: method for featue imputation.
                            if ``int``, use the number for imputation;
                            if ``mean``, use the mean along each column for imputation;
@@ -22,7 +22,7 @@ def featureImputation(modal,featureImputor = 'mean'):
                            all can only be used for numeric data.
     :type featureImputor: int, str, optional (default='mean')
     :returns: imputed data
-    :rtype: dataframe
+    :rtype: data frame
 
     """
     if type(featureImputor) == int:
@@ -42,11 +42,11 @@ def cutLowCompliance(modal,compliance=1.0):
     """Delete features with higher percentage of missing than the given value ``compliance``.
     
     :param modal: data 
-    :type modal: dataframe
+    :type modal: data frame
     :param compliance: the lower bound of accceptable feature missing percentage. If ``1.0``, no features are be excluded.
     :type compliance: float (default=1.0)
     :returns: data after applying  limits
-    :rtype: dataframe
+    :rtype: data frame
 
     """
     if compliance:
@@ -83,7 +83,7 @@ def modalImputation(df,featureName,identification,modalImputor = {},seed = 40,cl
     :param modalNeighbors: the number of nearest neighbours to used to construct synthetic samples for source imputation.
     :type modalNeighbors: int (default=3)
     :returns: data after source imputation
-    :rtype: dataframe
+    :rtype: data frame
 
     """
 
@@ -149,15 +149,15 @@ def modalImputation(df,featureName,identification,modalImputor = {},seed = 40,cl
 
 
 #general function for preprocessing: loading, imputation for two levels
-def dataPreprocessing(path = './', target = 'target', identification = None, compliance = 1.0, featureImp = True, featureImputor = 'mean', modalImp = True, modalImputor = {},clusterIMP = 5,modalNeighbors = 3,replace = False,random_state = 40):
+def dataPreprocessing(path = '../data/', target = 'target', identification = None, compliance = 1.0, featureImp = True, featureImputor = 'mean', modalImp = True, modalImputor = {},clusterIMP = 5,modalNeighbors = 3,replace = False,random_state = 40):
     """Data preprocessing: excluing features with higher percentage of missing than ``compliance``, feature imputation for each data source, imputation for missing modals. The processed data will be returned by the function and also stored as file ``processedData.csv`` in the given path.
     
     :param path: the file path for data, assuming each source would have one file.
-    :type path: string
+    :type path: string (default='../data/')
     :param target: the file name for ground truth data.
     :type target: string
     :param identification: the column name of identification/key among all data sources.  
-    :type identification: string(default=``None``)
+    :type identification: string (default=``None``)
     :param compliance: the lower bound of accceptable feature missing percentage.
     :type compliance: float (default=1.0)
     :param featureImp: indicator if feature imputation should be applied.
@@ -177,7 +177,7 @@ def dataPreprocessing(path = './', target = 'target', identification = None, com
     :param random_state: the seed of the pseudo random number generator to use if applicable.
     :type random_state: int (default=40)
     :returns: data after applying preprocessing 
-    :rtype: dataframe
+    :rtype: data frame
 
     """
 
