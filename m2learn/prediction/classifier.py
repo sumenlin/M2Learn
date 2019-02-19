@@ -161,6 +161,37 @@ def hyper_tune(name,X,y,seed = 40,cv_number = 3, metric = 'accuracy'):
 
 
 def oneClassifier(data,test_msk,train_msk,Xheads_list,metric='accuracy',cv_number = 3,seed = 40):
+    """Performe regression on data.
+    
+    :param data: input data
+    :type data: data frame
+    :param test_msk: the identification values of testing data
+    :type test_msk: list
+    :param train_msk: the identification values of training data.
+    :type train_msk: list
+    :param Xheads_list: list of selected feature lists
+    :type target: list of lists
+    :param metric: the metric of performance. 
+                 If ``accuracy``, use accuracy score;
+                 if ``f1``, use F1 score, only for binary class;
+                 if ``precision``, use precision score, only for binary class; 
+                 if ``recall``, use recall score, only for binary class; 
+                 if ``f1_macro``, calculate f1 score for each label, and find their unweighted mean; 
+                 if ``f1_micro``, calculate f1 globally by counting the total true positives, false negatives and false positives; 
+                 if ``f1_weighted``, calculate f1 for each label, and find their average weighted by support;
+                 if ``precision_macro``, calculate precision score for each label, and find their unweighted mean;
+                 if ``precision_micro``, calculate precision score globally by counting the total true positives, false negatives and false positives;
+                 if ``precision_weighted``, calculate precision score for each label, and find their average weighted by support;
+                 if ``recall_macro``, calculate recall score for each label, and find their unweighted mean;
+                 if ``recall_micro``, calculate recall score globally by counting the total true positives, false negatives and false positives;
+                 if ``recall_weighted``, calculate recall score for each label, and find their average weighted by support;
+    :type metric: string (default='accuracy')
+    :param cv_number: the number of folds used in cross validation.  
+    :type cv_number: int (default=3)
+    :param seed: the seed of the pseudo random number generator to use if applicable. 
+    :type seed: int (default=40)
+    :returns: optimal fitting results including cross validation metrics, selected features, selected model and corresponding parameters.
+    """
     Xheads = list(set(data.columns.tolist())-set(['id_','target']))
     data_train = data[data.id_.isin(train_msk)].reset_index(drop=True)
     Y = data_train.loc[:,'target']

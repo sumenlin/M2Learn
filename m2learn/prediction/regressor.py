@@ -144,6 +144,30 @@ def hyper_tune(name,X,y,seed = 40,cv_number = 3, metric = 'neg_mean_squared_erro
 
 
 def oneRegressor(data,test_msk,train_msk,Xheads_list,metric='neg_mean_squared_error',cv_number = 3,seed = 40):
+    """Performe regression on data.
+    
+    :param data: input data
+    :type data: data frame
+    :param test_msk: the identification values of testing data
+    :type test_msk: list
+    :param train_msk: the identification values of training data.
+    :type train_msk: list
+    :param Xheads_list: list of selected feature lists
+    :type target: list of lists
+    :param metric: the metric of performance. 
+                 If ``explained_variance``, use explained variance regression score;
+                 if ``neg_mean_absolute_error``, use mean absolute error regression loss; 
+                 if ``neg_mean_squared_error``, use mean squared error regression loss; 
+                 if ``neg_mean_squared_log_error``, use mean squared logarithmic error regression loss; 
+                 if ``neg_median_squared_error``, use median absolute error regression loss; 
+                 if ``r2``, use r2 score.
+    :type metric: string (default='neg_mean_squared_error')
+    :param cv_number: the number of folds used in cross validation.  
+    :type cv_number: int (default=3)
+    :param seed: the seed of the pseudo random number generator to use if applicable. 
+    :type seed: int (default=40)
+    :returns: optimal fitting results including cross validation metrics, selected features, selected model and corresponding parameters.
+    """
     Xheads = list(set(data.columns.tolist())-set(['id_','target']))
     data_train = data[data.id_.isin(train_msk)].reset_index(drop=True)
     Y = data_train.loc[:,'target']
