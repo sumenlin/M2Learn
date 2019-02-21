@@ -7,6 +7,9 @@ import warnings
 from imblearn.over_sampling import SMOTE
 from sklearn.cluster import KMeans
 # warnings.warn("Warning...........Message")
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.simplefilter(action='ignore', category=UserWarning)
 
 #feature imputation
 def featureImputation(modal,featureImputor = 'mean'):
@@ -156,7 +159,7 @@ def dataPreprocessing(path = '../data/', target = 'target', identification = Non
     :type path: string (default='../data/')
     :param target: the file name for ground truth data.
     :type target: string
-    :param identification: the column name of identification/key among all data sources.  
+    :param identification: the column name of identification/key among all data sources. If ``None``, it will raise errors.  
     :type identification: string (default=``None``)
     :param compliance: the lower bound of accceptable feature missing percentage.
     :type compliance: float (default=1.0)
@@ -180,7 +183,7 @@ def dataPreprocessing(path = '../data/', target = 'target', identification = Non
     :rtype: data frame
 
     """
-
+    targetfile = target+".csv"
     print "Loading Data ..."
     files = os.listdir(path)
     try:
@@ -193,42 +196,57 @@ def dataPreprocessing(path = '../data/', target = 'target', identification = Non
         raise Exception("Identification doesn't exist in target file.")
 
     featureName = {}
-    df = pd.DataFrame()
+    fea = set()
+    df = pd.DataFrame(columns=[identification])
     for fN in files:
         fname = fN[:-4]
-        print "Loading Data: " + fN
-        if fN == target+".csv":
+        if fN == targetfile or fN == '.DS_Store' or os.path.isdir(path+fN):
             continue
+
+        print "Loading Data: " + fN
         try:
             modal = pd.read_csv(path+fN)
-            featureName[fname] = []
-
-            #low compliance filter
-            cutLowCompliance(modal,compliance)
-
-            if identification == None:
-                raise Exception("Need to specify the common identification of all tables.")
-            
-
-            featureName[fname] = list(set(modal.columns.tolist())-set([identification]))
-            
-            #feature imputation
-            if featureImpute:
-                modal = featureImputation(modal,featureImputor = featureImputor,replace = replace)
-            else:
-                modal = modal.dropna().reset_index(drop=True)
-            if replace:
-                modal.to_csv(path+fN,index=False)
-            modal.to_csv(path+fname+"_featureImputed.csv",index=False)
-    
-
-            #outer merge data
-            try:
-                df = pd.merge(df,modal,on=identification,how='outer')
-            except:
-                raise Exception("Identification doesn't exist in data: "+path +fN)
         except:
-            warnings.warn("Loading Failure for Data File: "+path +fN)
+            raise Exception("Loading Failure for Data File: "+path +fN)
+
+        featureName[fname] = []
+
+        #low compliance filter
+        cutLowCompliance(modal,compliance)
+
+        if identification == None:
+            raise Exception("Need to specify the common identification of all tables.")
+        
+        # print fea 
+        # print list(set(modal.columns.tolist())-set([identification]))
+        # print ([_ in fea for _ in list(set(modal.columns.tolist())-set([identification]))])
+        # print any([_ in fea for _ in list(set(modal.columns.tolist())-set([identification]))])
+        if any([_ in fea for _ in list(set(modal.columns.tolist())-set([identification]))]):
+            raise Exception("There are duplicated feature names in source: "+fN+".")
+
+        featureName[fname] = list(set(modal.columns.tolist())-set([identification]))
+        fea = set(list(fea)+list(set(modal.columns.tolist())-set([identification])))
+        
+        #feature imputation
+        if featureImp:
+            modal = featureImputation(modal,featureImputor = featureImputor)
+        else:
+            modal = modal.dropna().reset_index(drop=True)
+        if replace:
+            modal.to_csv(path+fN,index=False)
+
+        if not os.path.exists(path+"imputed"):
+            os.mkdir(path+"imputed")
+        modal.to_csv(path+"imputed/"+fname+"_featureImputed.csv",index=False)
+
+
+        #outer merge data
+
+        try:
+            df = pd.merge(df,modal,on=identification,how='outer')
+        except:
+            raise Exception("Identification doesn't exist in data: "+path +fN)
+    
 
     #modal imputation
     if modalImp:
@@ -241,10 +259,10 @@ def dataPreprocessing(path = '../data/', target = 'target', identification = Non
         tmp = df.ix[:,iX+[identification]]
         if replace :
             tmp.to_csv(path+_fname,index=False)
-        tmp.to_csv(path+_fname+"_imputed.csv",index=False)
+        tmp.to_csv(path+"imputed/"+_fname+"_imputed.csv",index=False)
 
 
-    df.to_csv(path+"processedData.csv",index=False)
+    df.to_csv(path+"imputed/"+"processedData.csv",index=False)
     return df, target, featureName
 
 
