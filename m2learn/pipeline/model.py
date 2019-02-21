@@ -175,13 +175,13 @@ def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', id
         print "the selected features: ", bestX
         clf.fit(data_train.ix[:,bestX].as_matrix(),data_train.ix[:,'target'].as_matrix())
         y_pred = clf.predict(data_test.ix[:,bestX]).tolist()
-        return scoreing(y_pred,data_test['target'].tolist(),metric), data_test['target'].tolist(),y_pred
+        return scoring(y_pred,data_test['target'].tolist(),metric), data_test['target'].tolist(),y_pred
     else:
         print "the selected model: ", bestM 
         print "the selected PCA: ", bestPCA
         bestM.fit(tmp[tmp.id_.isin(train_msk)].ix[:,range(bestPCA)].as_matrix(),data_train.ix[:,'target'].as_matrix())
         y_pred = clf.predict(tmp[tmp.id_.isin(test_msk)].ix[:,range(bestPCA)]).tolist()
-        return scoreing(y_pred,data_test['target'].tolist(),metric), data_test['target'].tolist(),y_pred
+        return scoring(y_pred,data_test['target'].tolist(),metric), data_test['target'].tolist(),y_pred
 
 
 
@@ -303,11 +303,11 @@ def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', i
         clf.fit(data_train.ix[:,bestX].as_matrix(),data_train.ix[:,'target'].as_matrix())
         y_pred = clf.predict(data_test.ix[:,bestX]).tolist()
 
-        return scoreing(y_pred,data_test['target'].tolist(),metric),data_test['target'].tolist(),y_pred
+        return scoring(y_pred,data_test['target'].tolist(),metric),data_test['target'].tolist(),y_pred
     else:
         print "the selected model: ", bestM 
         print "the selected PCA: ", bestPCA
         bestM.fit(tmp[tmp.id_.isin(train_msk)].ix[:,range(bestPCA)].as_matrix(),data_train.ix[:,'target'].as_matrix())
         y_pred = clf.predict(tmp[tmp.id_.isin(test_msk)].ix[:,range(bestPCA)]).tolist()
-        return scoreing(y_pred,data_test['target'].tolist(),metric),data_test['target'].tolist(),y_pred
+        return scoring(y_pred,data_test['target'].tolist(),metric),data_test['target'].tolist(),y_pred
 
