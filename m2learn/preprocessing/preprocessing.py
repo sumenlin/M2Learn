@@ -28,7 +28,18 @@ def featureImputation(modal,featureImputor = 'mean'):
     :rtype: data frame
 
     """
-    
+    if type(featureImputor) == int:
+        modal = modal.fillna(featureImputor)
+    elif featureImputor == 'mean':
+        modal = modal.fillna(modal.mean())
+    elif featureImputor == 'median':
+        modal = modal.fillna(modal.median())
+    elif featureImputor == 'mode':
+        modal = modal.fillna(modal.mode())
+    else:
+        raise Exception("Illegal feature imputation value: "+str(featureImputor))
+    return modal
+
 
 def cutLowCompliance(modal,compliance=1.0):
     """Delete features with higher percentage of missing than the given value ``compliance``.
@@ -41,7 +52,21 @@ def cutLowCompliance(modal,compliance=1.0):
     :rtype: data frame
 
     """
-    
+    if compliance:
+        col = modal.columns.tolist()
+        null_count = modal.isna().sum()
+        newc = []
+        for c in col:
+            if null_count[c]<len(modal.index)*compliance:
+                newc.append(c)
+        print "There are "+str(len(col)-len(newc))+" features with compliance lower than "+str(compliance)+":"
+        print list(set(col)-set(newc))
+        modal = modal.ix[:,newc]
+        if modal.empty:
+            raise Exception("Compliance condition is too restricted to cut all the features of data: "+path +fN)
+    return modal
+
+
 #modal imputation
 def modalImputation(df,featureName,identification,modalImputor = {},seed = 40,clusterIMP = 5,modalNeighbors = 3):
     """Perform source imputation for the data
@@ -65,7 +90,65 @@ def modalImputation(df,featureName,identification,modalImputor = {},seed = 40,cl
 
     """
 
+    if "id_" in df.columns.tolist():
+        raise Exception("The column name 'id_' is illegal.")
+        
+    df = df.rename(index=str,columns = {identification:'id_'})
+
+    ndf = df
+    for _fname,_ffeature in featureName.items():
+        iX = _ffeature
+        if _fname not in modalImputor:
+            otherX = []
+            for k,v in featureName.items():
+                if k!=_fname:
+                    otherX += v
+        else:
+            otherX = []
+            for fN in modalImputor[_fname]:
+                otherX += featureName[fN]
+
+        #idl to be imputed
+        g_data = df.ix[:,otherX+['id_']].dropna().reset_index(drop=True)
+        g_idl = g_data['id_'].tolist()
+        p_data = ndf.ix[:,iX+['id_']].dropna().reset_index(drop=True)
+        p_idl = p_data['id_'].tolist()
+        g2p_idl = list(set(g_idl)-set(p_idl))
+
+        #clustering on others
+        X_g = g_data.drop('id_',axis=1).as_matrix() 
+        kmeans = KMeans(n_clusters=clusterIMP, random_state=seed)
+        kmeans.fit(X_g)
+        g_label = kmeans.labels_.tolist()
+        g_data['label_'] = g_label
+
+        #get i
+        gp_data = pd.merge(p_data,g_data,on='id_')
+        gp_idl = gp_data.id_.tolist()
+        y_gp = gp_data.label_.tolist()
+        X_gp = gp_data.ix[:,['id_']+iX].as_matrix()
+        g2p_label = g_data[g_data.id_.isin(g2p_idl)].reset_index(drop=True).ix[:,['id_','label_']]
+        g2p_data = pd.DataFrame(columns=['id_']+iX)
+        for i in range(clusterIMP):
+            label_idl = g2p_label[g2p_label.label_.isin([i])].id_.tolist()
+            sm = SMOTE(k_neighbors=modalNeighbors,random_state=seed,ratio={i:y_gp.count(i)+len(label_idl)})
+            X_res,y_res = sm.fit_resample(X_gp,y_gp)
+            X_res = pd.DataFrame(X_res, columns=['id_']+iX)
+            X_res = X_res[~X_res.id_.isin(gp_idl)].reset_index(drop=True)
+            X_res['id_'] = label_idl
+            g2p_data = pd.concat([X_res, g2p_data]).reset_index(drop=True)
+
+        new_p_data = pd.concat([p_data,g2p_data]).reset_index(drop=True)
     
+        #merge
+        tmp = ndf.drop(iX,axis=1)
+        ndf = pd.merge(tmp,new_p_data,on='id_',how='outer')
+
+    # ndf = ndf.dropna().reset_index()
+    ndf = ndf.rename(index=str,columns={'id_':identification})
+
+    return ndf
+
 
 
 #general function for preprocessing: loading, imputation for two levels
@@ -100,7 +183,87 @@ def dataPreprocessing(path = '../data/', target = 'target', identification = Non
     :rtype: data frame
 
     """
+    targetfile = target+".csv"
+    print "Loading Data ..."
+    files = os.listdir(path)
+    try:
+       target = pd.read_csv(path+target+".csv")
+    except:
+        raise Exception("Target file doesn't exist.")
+    if identification == None:
+        raise Exception("Need to specify the common identification of all tables.")
+    elif identification not in target.columns.tolist():
+        raise Exception("Identification doesn't exist in target file.")
+
+    featureName = {}
+    fea = set()
+    df = pd.DataFrame(columns=[identification])
+    for fN in files:
+        fname = fN[:-4]
+        if fN == targetfile or fN == '.DS_Store' or os.path.isdir(path+fN):
+            continue
+
+        print "Loading Data: " + fN
+        try:
+            modal = pd.read_csv(path+fN)
+        except:
+            raise Exception("Loading Failure for Data File: "+path +fN)
+
+        featureName[fname] = []
+
+        #low compliance filter
+        cutLowCompliance(modal,compliance)
+
+        if identification == None:
+            raise Exception("Need to specify the common identification of all tables.")
+        
+        # print fea 
+        # print list(set(modal.columns.tolist())-set([identification]))
+        # print ([_ in fea for _ in list(set(modal.columns.tolist())-set([identification]))])
+        # print any([_ in fea for _ in list(set(modal.columns.tolist())-set([identification]))])
+        if any([_ in fea for _ in list(set(modal.columns.tolist())-set([identification]))]):
+            raise Exception("There are duplicated feature names in source: "+fN+".")
+
+        featureName[fname] = list(set(modal.columns.tolist())-set([identification]))
+        fea = set(list(fea)+list(set(modal.columns.tolist())-set([identification])))
+        
+        #feature imputation
+        if featureImp:
+            modal = featureImputation(modal,featureImputor = featureImputor)
+        else:
+            modal = modal.dropna().reset_index(drop=True)
+        if replace:
+            modal.to_csv(path+fN,index=False)
+
+        if not os.path.exists(path+"imputed"):
+            os.mkdir(path+"imputed")
+        modal.to_csv(path+"imputed/"+fname+"_featureImputed.csv",index=False)
+
+
+        #outer merge data
+
+        try:
+            df = pd.merge(df,modal,on=identification,how='outer')
+        except:
+            raise Exception("Identification doesn't exist in data: "+path +fN)
     
+
+    #modal imputation
+    if modalImp:
+        df = modalImputation(df=df,featureName=featureName,identification=identification,modalImputor=modalImputor,seed=random_state,clusterIMP=clusterIMP,modalNeighbors=modalNeighbors)
+    
+    df = df.dropna().reset_index(drop=True)
+
+    for _fname,_ffeature in featureName.items():
+        iX = _ffeature
+        tmp = df.ix[:,iX+[identification]]
+        if replace :
+            tmp.to_csv(path+_fname,index=False)
+        tmp.to_csv(path+"imputed/"+_fname+"_imputed.csv",index=False)
+
+
+    df.to_csv(path+"imputed/"+"processedData.csv",index=False)
+    return df, target, featureName
 
 
 
