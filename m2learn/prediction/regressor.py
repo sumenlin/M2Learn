@@ -143,17 +143,19 @@ def hyper_tune(name,X,y,seed = 40,cv_number = 3, metric = 'neg_mean_squared_erro
 
 
 
-def oneRegressor(data,test_msk,train_msk,Xheads_list,metric='neg_mean_squared_error',cv_number = 3,seed = 40):
+def oneRegressor(data,identification,test_msk,train_msk,Xheads_list,metric='neg_mean_squared_error',cv_number = 3,seed = 40):
     """Performe regression on data.
     
     :param data: input data
     :type data: data frame
+    :param identification: the column name of identification/key among all data sources. If ``None``, it will raise errors.  
+    :type identification: string (default=``None``)
     :param test_msk: the identification values of testing data
     :type test_msk: list
     :param train_msk: the identification values of training data.
     :type train_msk: list
     :param Xheads_list: list of selected feature lists
-    :type target: list of lists
+    :type Xheads_list: list of lists
     :param metric: the metric of performance. 
                  If ``explained_variance``, use explained variance regression score;
                  if ``neg_mean_absolute_error``, use mean absolute error regression loss; 
@@ -168,13 +170,15 @@ def oneRegressor(data,test_msk,train_msk,Xheads_list,metric='neg_mean_squared_er
     :type seed: int (default=40)
     :returns: optimal fitting results including cross validation metrics, selected features, selected model and corresponding parameters.
     """
+
+    data = data.rename(index=str,columns={identification:'id_'})
     Xheads = list(set(data.columns.tolist())-set(['id_','target']))
     data_train = data[data.id_.isin(train_msk)].reset_index(drop=True)
-    Y = data_train.loc[:,'target']
+    Y = data_train.loc[:,['target']]
     X0 = data_train.loc[:,Xheads]
-    data_test = data[data.id.isin(test_msk)].reset_index(drop=True)
-    data_test = data_test.ix[:,Xheads+'target'] #testing
-    Y_test_w = data_test.loc[:,'target']
+    data_test = data[data.id_.isin(test_msk)].reset_index(drop=True)
+    data_test = data_test.ix[:,Xheads+['target']]#testing
+    Y_test_w = data_test.loc[:,['target']]
     X0_test_w = data_test.loc[:,Xheads]
     
     # results = pd.DataFrame(columns=['Xheads', 'corr.avg','scores','model','parameters'])
@@ -243,6 +247,7 @@ def oneRegressor(data,test_msk,train_msk,Xheads_list,metric='neg_mean_squared_er
 
     # results = results.sort_values(by='corr.avg',ascending=False).reset_index(drop=True)
     # print results.loc[0,:]
+    # print maxS,scores
     return maxS,bestX,bestM,bestN,bestPara
 
 

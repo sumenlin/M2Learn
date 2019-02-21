@@ -160,11 +160,13 @@ def hyper_tune(name,X,y,seed = 40,cv_number = 3, metric = 'accuracy'):
         return clf,para
 
 
-def oneClassifier(data,test_msk,train_msk,Xheads_list,metric='accuracy',cv_number = 3,seed = 40):
+def oneClassifier(data,identification,test_msk,train_msk,Xheads_list,metric='accuracy',cv_number = 3,seed = 40):
     """Performe regression on data.
     
     :param data: input data
     :type data: data frame
+    :param identification: the column name of identification/key among all data sources. If ``None``, it will raise errors.  
+    :type identification: string (default=``None``)
     :param test_msk: the identification values of testing data
     :type test_msk: list
     :param train_msk: the identification values of training data.
@@ -192,13 +194,14 @@ def oneClassifier(data,test_msk,train_msk,Xheads_list,metric='accuracy',cv_numbe
     :type seed: int (default=40)
     :returns: optimal fitting results including cross validation metrics, selected features, selected model and corresponding parameters.
     """
+    data = data.rename(index=str,columns={identification:'id_'})
     Xheads = list(set(data.columns.tolist())-set(['id_','target']))
     data_train = data[data.id_.isin(train_msk)].reset_index(drop=True)
-    Y = data_train.loc[:,'target']
+    Y = data_train.loc[:,['target']]
     X0 = data_train.loc[:,Xheads]
-    data_test = data[data.id.isin(test_msk)].reset_index(drop=True)
-    data_test = data_test.ix[:,Xheads+'target'] #testing
-    Y_test_w = data_test.loc[:,'target']
+    data_test = data[data.id_.isin(test_msk)].reset_index(drop=True)
+    data_test = data_test.ix[:,Xheads+['target']] #testing
+    Y_test_w = data_test.loc[:,['target']]
     X0_test_w = data_test.loc[:,Xheads]
     
     # results = pd.DataFrame(columns=['Xheads', 'corr.avg','scores','model','parameters'])
