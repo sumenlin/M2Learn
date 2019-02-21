@@ -99,7 +99,7 @@ def selectFeature(data,target, kind = 'all',co_linear = False,N = None):
                  if ``all``, include selected features from both Pearson correlation and regression coefficients. 
     :type kind: string (default='all')
     :param N: the number of features to select. If ``None``, select the top ``N`` features where ``N`` is from 5 to the number of total features with interval 5.  
-    :type N: int (default=None)
+    :type N: int,list (default=None)
     :param co_linear: indicator if eliminating the features with high correlation for each other. 
     :type co_linear: bool (default=False)
     :returns: list of potential selected feature lists
@@ -108,11 +108,14 @@ def selectFeature(data,target, kind = 'all',co_linear = False,N = None):
     M = int((len(data.index))**(0.5))
     if N==None:
         N = min(len(data.columns.tolist()),M)
-        LN = range(5,N+1,5)
+        mN = min(5,len(data.columns.tolist()))
+        LN = range(mN,N+1,5)
     elif type(N)==int:
         LN = [N]
     elif type(N)==list:
         LN = N
+    y = target
+
 
     Xheads = data.columns.tolist()
     Xheads_list = []
