@@ -12,7 +12,45 @@ from ..prediction.ensemble import *
 from ..preprocessing.preprocessing import *
 
 def scoring(y_pred,y_test,metric):
-    
+    if metric == 'explained_variance':
+        corre = explained_variance_score(y_test,y_pred)
+    elif metric == 'neg_mean_absolute_error':
+        corre = (-1)*mean_absolute_error(y_test,y_pred)
+    elif metric == 'neg_mean_squared_error':
+        corre = (-1)*mean_squared_error(y_test,y_pred)
+    elif metric == 'neg_mean_squared_log_error':
+        corre = (-1)*mean_squared_log_error(y_test,y_pred)
+    elif metric == 'neg_median_squared_error':
+        corre = (-1)*median_squared_error(y_test,y_pred)
+    elif metric == 'r2':
+        corre = r2_score(y_test,y_pred)
+    elif metric == 'accuracy':
+        corre = accuracy_score(y_test,y_pred)
+    elif metric == 'f1':
+        corre = f1_score(y_test,y_pred)
+    elif metric == 'f1_micro':
+        corre = f1_score(y_test,y_pred,average='micro')
+    elif metric == 'f1_macro':
+        corre = f1_score(y_test,y_pred,average='macro')
+    elif metric == 'f1_weighted':
+        corre = f1_score(y_test,y_pred,average='weighted')
+    elif metric == 'precision':
+        corre = precision_score(y_test,y_pred)
+    elif metric == 'precision_micro':
+        corre = precision_score(y_test,y_pred,average='micro')
+    elif metric == 'precision_macro':
+        corre = precision_score(y_test,y_pred,average='macro')
+    elif metric == 'precision_weighted':
+        corre = precision_score(y_test,y_pred,average='weighted')
+    elif metric == 'recall':
+        corre = recall_score(y_test,y_pred)
+    elif metric == 'recall_micro':
+        corre = recall_score(y_test,y_pred,average='micro')
+    elif metric == 'recall_macro':
+        corre = recall_score(y_test,y_pred,average='macro')
+    elif metric == 'recall_weighted':
+        corre = recall_score(y_test,y_pred,average='weighted')
+    return corre
 
 def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', identification = None, 
                      compliance = 1.0, 
@@ -78,7 +116,75 @@ def generalRegressor(train_msk,test_msk,path = '../data/', target = 'target', id
     :rtype: data frame
 
     """
-    
+    df, target, featureName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImp = modalImp, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
+    #PCA method
+    df = df.rename(index=str,columns={identification:'id_'})
+    yhead = list(set(target.columns.tolist())-set([identification]))[0]
+    target = target.rename(index=str,columns={identification:'id_',yhead:'target'})
+    df = pd.merge(df,target,on='id_')
+    # print df.info()
+    data_train = df[df.id_.isin(train_msk)].reset_index(drop=True)
+    data_test = df[df.id_.isin(test_msk)].reset_index(drop=True)
+
+    maxS = -1*float('inf')
+    if pca_number==None:
+        if len(data_train.columns.tolist())-2>=10:
+            tmp_pcas = [3,5,10]
+        elif len(data_train.columns.tolist())-2>=5:
+            tmp_pcas = [3,5]
+        elif len(data_train.columns.tolist())-2>=3:
+            tmp_pcas = [3]
+        else:
+            tmp_pcas = [len(data_train.columns.tolist())-2]
+        for pca_n in [3,5,10]:
+            data_train_pca,data_test_pca = featurePCA(data_train.drop(['id_','target'],axis=1),data_test.drop(['id_','target'],axis=1),pca_number = pca_n,random_state = random_state)
+            data_train_pca = pd.DataFrame(data_train_pca, columns=range(pca_n))
+            data_train_pca['id_'] = data_train.id_.tolist()
+            data_train_pca['target'] = data_train.target.tolist()
+            data_test_pca = pd.DataFrame(data_test_pca, columns=range(pca_n))
+            data_test_pca['id_'] = data_test.id_.tolist()
+            data_test_pca['target'] = data_test.target.tolist()
+            data_pca = pd.concat([data_train_pca,data_test_pca]).reset_index(drop=True)
+            bestS,bestX,clf,bestN,bestPara = oneRegressor(data_pca,'id_',test_msk,train_msk,[range(pca_n)],metric = metric,cv_number = cv_number,seed = random_state)
+            if bestS>maxS:
+                bestM = clf
+                bestPCA = pca_n
+                maxS = bestS
+                tmp = data_pca
+    else:
+        pca_n = pca_number
+        data_train_pca,data_test_pca = featurePCA(data_train.drop(['id_','target'],axis=1),data_test.drop(['id_','target'],axis=1),pca_number = pca_n,random_state = random_state)
+        data_train_pca = pd.DataFrame(data_train_pca, columns=range(pca_n))
+        data_train_pca['id_'] = data_train.id_.tolist()
+        data_train_pca['target'] = data_train.target.tolist()
+        data_test_pca = pd.DataFrame(data_test_pca, columns=range(pca_n))
+        data_test_pca['id_'] = data_test.id_.tolist()
+        data_test_pca['target'] = data_test.target.tolist()
+        data_pca = pd.concat([data_train_pca,data_test_pca]).reset_index(drop=True)
+        maxS,bestX,clf,bestN,bestPara = oneRegressor(data_pca,'id_',test_msk,train_msk,[range(pca_n)],metric = metric,cv_number = cv_number,seed = random_state)
+        tmp = data_pca
+
+
+    #regression
+    Xheads_list = selectFeature(data_train.drop(['id_','target'],axis=1),data_train['target'], kind = selectionFeatureKind,co_linear = co_linear, N = N)
+    print Xheads_list
+    bestS,bestX,clf,bestN,bestPara = oneRegressor(df,'id_',test_msk,train_msk,Xheads_list,metric = metric,cv_number = cv_number,seed = random_state)
+
+    if bestS>maxS:
+        print "the selected model: ", clf 
+        print "the selected features: ", bestX
+        clf.fit(data_train.ix[:,bestX].as_matrix(),data_train.ix[:,'target'].as_matrix())
+        y_pred = clf.predict(data_test.ix[:,bestX]).tolist()
+        return scoring(y_pred,data_test['target'].tolist(),metric), data_test['target'].tolist(),y_pred
+    else:
+        print "the selected model: ", bestM 
+        print "the selected PCA: ", bestPCA
+        bestM.fit(tmp[tmp.id_.isin(train_msk)].ix[:,range(bestPCA)].as_matrix(),data_train.ix[:,'target'].as_matrix())
+        y_pred = clf.predict(tmp[tmp.id_.isin(test_msk)].ix[:,range(bestPCA)]).tolist()
+        return scoring(y_pred,data_test['target'].tolist(),metric), data_test['target'].tolist(),y_pred
+
+
+
 
 def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', identification = None, 
                      compliance = 1.0, 
@@ -150,4 +256,58 @@ def generalClassifier(train_msk,test_msk,path = '../data/', target = 'target', i
     :rtype: data frame
 
     """
-    
+    df, target, featureName = dataPreprocessing(path = path, target = target, identification = identification, compliance = compliance, featureImp = featureImp, featureImputor = featureImputor, modalImp = modalImp, modalImputor = modalImputor,replace = replace,random_state = random_state,clusterIMP = clusterIMP)
+    #PCA method
+    df = df.rename(index=str,columns={identification:'id_'})
+    yhead = list(set(target.columns.tolist())-set([identification]))[0]
+    target = target.rename(index=str,columns={identification:'id_',yhead:'target'})
+    df = pd.merge(df,target,on='id_')
+    data_train = df[df.id_.isin(train_msk)].reset_index(drop=True)
+    data_test = df[df.id_.isin(test_msk)].reset_index(drop=True)
+
+    maxS = -1*float('inf')
+    if pca_number==None:
+        for pca_n in [3,5,10]:
+            data_train_pca,data_test_pca = featurePCA(data_train.drop(['id_','target'],axis=1),data_test.drop(['id_','target'],axis=1),pca_number = pca_n,random_state = random_state)
+            data_train_pca = pd.DataFrame(data_train_pca, columns=range(pca_n))
+            data_train_pca['id_'] = data_train.id_.tolist()
+            data_train_pca['target'] = data_train.target.tolist()
+            data_test_pca = pd.DataFrame(data_test_pca, columns=range(pca_n))
+            data_test_pca['id_'] = data_test.id_.tolist()
+            data_test_pca['target'] = data_test.target.tolist()
+            data_pca = pd.concat([data_train_pca,data_test_pca]).reset_index(drop=True)
+            bestS,bestX,clf,bestN,bestPara = oneClassifier(data_pca,'id_',test_msk,train_msk,[range(pca_n)],metric = metric,cv_number = cv_number,seed = random_state)
+            if bestS>maxS:
+                bestM = clf
+                bestPCA = pca_n
+                maxS = bestS
+                tmp = data_pca
+    else:
+        data_train_pca,data_test_pca = featurePCA(data_train.drop(['id_','target'],axis=1),data_test.drop(['id_','target'],axis=1),pca_number = pca_n,random_state = random_state)
+        data_train_pca = pd.DataFrame(data_train_pca, columns=range(pca_n))
+        data_train_pca['id_'] = data_train.id_.tolist()
+        data_train_pca['target'] = data_train.target.tolist()
+        data_test_pca = pd.DataFrame(data_test_pca, columns=range(pca_n))
+        data_test_pca['id_'] = data_test.id_.tolist()
+        data_test_pca['target'] = data_test.target.tolist()
+        data_pca = pd.concat([data_train_pca,data_test_pca]).reset_index(drop=True)
+        maxS,bestX,clf,bestN,bestPara = oneClassifier(data_pca,'id_',test_msk,train_msk,[range(pca_n)],metric = metric,cv_number = cv_number,seed = random_state)
+
+    #regression
+    Xheads_list = selectFeature(data_train.drop(['id_','target'],axis=1),data_train['target'], kind = selectionFeatureKind,co_linear = co_linear,N = N)
+    bestS,bestX,clf,bestN,bestPara = oneClassifier(df,'id_',test_msk,train_msk,Xheads_list,metric = metric,cv_number = cv_number,seed = random_state)
+
+    if bestS>maxS:
+        print "the selected model: ", clf 
+        print "the selected features: ", bestX
+        clf.fit(data_train.ix[:,bestX].as_matrix(),data_train.ix[:,'target'].as_matrix())
+        y_pred = clf.predict(data_test.ix[:,bestX]).tolist()
+
+        return scoring(y_pred,data_test['target'].tolist(),metric),data_test['target'].tolist(),y_pred
+    else:
+        print "the selected model: ", bestM 
+        print "the selected PCA: ", bestPCA
+        bestM.fit(tmp[tmp.id_.isin(train_msk)].ix[:,range(bestPCA)].as_matrix(),data_train.ix[:,'target'].as_matrix())
+        y_pred = clf.predict(tmp[tmp.id_.isin(test_msk)].ix[:,range(bestPCA)]).tolist()
+        return scoring(y_pred,data_test['target'].tolist(),metric),data_test['target'].tolist(),y_pred
+
